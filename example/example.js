@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 
+import TimePicker from '../src/timepicker'
+
 export default class Example extends Component {
     render() {
         return(
-            <div>Example</div>
+            <div>
+                <TimePicker />
+                <div>Example</div>
+            </div>
         )
     }
 }
