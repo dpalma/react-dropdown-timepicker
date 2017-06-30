@@ -32,20 +32,30 @@ export default class TimePicker extends Component {
         }
     }
 
+    selectItem(value) {
+        console.log("Selected " + value);
+    }
+
     render() {
         return (
             <div className={"timepicker__container" + (this.state.isOpen ? " timepicker__container__open" : " timepicker__container__closed")}>
                 <div className="timepicker__display" onClick={this.toggleDropdown}>TimePicker</div>
                 <div className="timepicker__droplist">
-                    <ul>
-                        <li>12:00</li>
-                        <li>1:00</li>
-                        <li>2:00</li>
-                        <li>3:00</li>
-                    </ul>
+                    <div>
+                        {this.renderChoices()}
+                    </div>
                 </div>
             </div>
         )
+    }
+
+    renderChoices() {
+        let choices = [];
+        for (let i = 0; i < 12; ++i) {
+            let t = i || 12;
+            choices.push(<div onClick={this.selectItem.bind(this, t)}>{t}</div>)
+        }
+        return choices;
     }
 }
 

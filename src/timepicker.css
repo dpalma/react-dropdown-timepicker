@@ -12,9 +12,23 @@
 
 
 .timepicker__display {
-    height: 40px;
+    cursor: pointer;
+    border: solid 1px black;
+    box-sizing: border-box;
 }
 
-.timepicker__droplist {
+div.timepicker__droplist {
+}
 
+.timepicker__droplist>div {
+    position: absolute;
+    cursor: pointer;
+    width: 100%;
+    background: white;
+}
+
+.timepicker__droplist>div>div {
+    width: 100%;
+    padding: 0px 8px;
+    box-sizing: border-box;
 }
