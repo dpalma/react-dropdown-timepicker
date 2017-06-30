@@ -32,3 +32,8 @@ div.timepicker__droplist {
     padding: 0px 8px;
     box-sizing: border-box;
 }
+
+
+.timepicker__droplist>div>div:hover {
+    background:#F0F0F0;
+}
