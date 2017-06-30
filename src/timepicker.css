@@ -1,7 +1,20 @@
-.timepicker {
+.timepicker__container {
 
 }
 
-.timepicker__input {
-    
+.timepicker__container__open > div.timepicker__droplist {
+    transform: scale(1,1)
+}
+
+.timepicker__container__closed > div.timepicker__droplist {
+    transform: scale(1,0)
+}
+
+
+.timepicker__display {
+    height: 40px;
+}
+
+.timepicker__droplist {
+
 }
