@@ -1,5 +1,6 @@
 const webpack = require("webpack")
 const path = require("path")
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
 	entry: [
@@ -8,8 +9,7 @@ module.exports = {
 
 	output: {
 		path: path.join(__dirname, '/dist'),
-		filename: './bundle.js',
-		publicPath: 'dist/'
+		filename: 'bundle.js'
 	},
 
 	module: {
@@ -20,6 +20,12 @@ module.exports = {
             { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, use: 'url-loader' },
             { test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/, use: 'file-loader' }
         ]
-    }
+    },
+
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: 'example/index.ejs'
+        })
+    ]
     
 }
