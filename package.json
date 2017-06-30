@@ -4,7 +4,8 @@
   "description": "Simple time-picker for ReactJS",
   "main": "index.js",
   "scripts": {
-    "build": "node node_modules/webpack/bin/webpack.js"
+    "build": "node node_modules/webpack/bin/webpack.js",
+    "test": "node node_modules/jest/bin/jest.js"
   },
   "keywords": [
     "react",
@@ -13,11 +14,17 @@
   ],
   "author": "Dan Palma",
   "license": "MIT",
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less|scss)$": "identity-obj-proxy"
+    }
+  },
   "dependencies": {
     "webpack": "^3.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
+    "babel-jest": "^20.0.3",
     "babel-loader": "^7.1.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
@@ -26,6 +33,8 @@
     "font-awesome": "^4.7.0",
     "font-awesome-loader": "^1.0.2",
     "html-webpack-plugin": "^2.29.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^20.0.4",
     "node-sass": "^4.5.3",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
