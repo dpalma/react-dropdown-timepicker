@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import css from './timepicker.css'
 
+import 'font-awesome/scss/font-awesome.scss'
+
 export default class TimePicker extends Component {
     constructor(props) {
         super(props)
@@ -43,7 +45,10 @@ export default class TimePicker extends Component {
     render() {
         return (
             <div className={"timepicker__container" + (this.state.isOpen ? " timepicker__container__open" : " timepicker__container__closed")}>
-                <div className="timepicker__display" onClick={this.toggleDropdown}>{this.state.value}</div>
+                <div className="timepicker__display" onClick={this.toggleDropdown}>
+                    {this.state.value}
+                    <i className="fa fa-angle-down"></i>
+                </div>
                 <div className="timepicker__droplist">
                     <div>
                         {this.renderChoices()}

@@ -7,17 +7,19 @@ module.exports = {
 	],
 
 	output: {
-		path: path.join(__dirname, '/example'),
+		path: path.join(__dirname, '/dist'),
 		filename: './bundle.js',
-		publicPath: 'example/'
+		publicPath: 'dist/'
 	},
 
 	module: {
 		loaders: [
-            { test: /\.js$/, exclude: [/node_modules/], loaders: ['babel-loader'] },
-            { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] }
+            { test: /\.js$/, exclude: [/node_modules/], use: ['babel-loader'] },
+            { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] },
+            { test: /\.scss$/, exclude: [/src/], use: [ 'style-loader', 'css-loader', 'sass-loader' ] },
+            { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, use: 'url-loader' },
+            { test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/, use: 'file-loader' }
         ]
     }
-    
     
 }
