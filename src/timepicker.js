@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import css from './timepicker.css'
+
 export default class TimePicker extends Component {
     constructor(props) {
         super(props)
@@ -11,7 +13,9 @@ export default class TimePicker extends Component {
 
     render() {
         return (
-            <div>TimePicker</div>
+            <div className="timepicker">
+                <div className="timepicker__input">TimePicker</div>
+            </div>
         )
     }
 }
