@@ -45,17 +45,16 @@ div.timepicker__droplist {
   background-color: gray
 }
 
-.timegrid__line {
-  display: table-row;
+.timegrid__hour {
   width: 100%;
+  display: table-row;
 }
 
-.timegrid__hour {
+.timegrid__hourtext {
   display: table-cell;
 }
 
 .timegrid__min {
-  display: table-row;
 }
 
 .timegrid__min00, .timegrid__min15, .timegrid__min30, .timegrid__min45 {

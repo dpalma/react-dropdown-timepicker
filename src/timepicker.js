@@ -30,8 +30,8 @@ class TimeGrid extends Component {
       for (let i = 0; i < 12; ++i) {
           let h = i || 12;
           hours.push(
-            <div key={h} className="timegrid__line">
-              <div className="timegrid__hour">{h}:00</div>
+            <div key={h} className="timegrid__hour">
+              <div className="timegrid__hourtext">{h}:00</div>
               <div className="timegrid__min">
                 <div className="timegrid__min00">:00</div>
                 <div className="timegrid__min15">:15</div>
