@@ -1,5 +1,4 @@
 .timepicker__container {
-
 }
 
 .timepicker__container__open > div.timepicker__droplist {
@@ -23,17 +22,42 @@ div.timepicker__droplist {
 .timepicker__droplist>div {
     position: absolute;
     cursor: pointer;
-    width: 100%;
     background: white;
 }
 
 .timepicker__droplist>div>div {
-    width: 100%;
-    padding: 0px 8px;
     box-sizing: border-box;
 }
 
 
 .timepicker__droplist>div>div:hover {
     background:#F0F0F0;
+}
+
+.timegrid__container {
+}
+
+.timegrid__amcol, .timegrid__pmcol {
+  float: left;
+}
+
+.timegrid__colheader {
+  background-color: gray
+}
+
+.timegrid__line {
+  display: table-row;
+  width: 100%;
+}
+
+.timegrid__hour {
+  display: table-cell;
+}
+
+.timegrid__min {
+  display: table-row;
+}
+
+.timegrid__min00, .timegrid__min15, .timegrid__min30, .timegrid__min45 {
+  display: table-cell;
 }
