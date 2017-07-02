@@ -5,6 +5,46 @@ import css from './timepicker.css'
 
 import 'font-awesome/scss/font-awesome.scss'
 
+class TimeGrid extends Component {
+    render() {
+      return(
+        <div className="timegrid__container">
+          {this.renderTimeGridColumn("am")}
+          {this.renderTimeGridColumn("pm")}
+        </div>
+      )
+    }
+
+    // meridiem argument should be "am" or "pm"
+    renderTimeGridColumn(meridiem) {
+      return (
+        <div className={"timegrid__"+meridiem+"col"}>
+          <div className="timegrid__colheader">{meridiem.toUpperCase()}</div>
+          {this.renderTimeGridHours()}
+        </div>
+      )
+    }
+
+    renderTimeGridHours() {
+      let hours = [];
+      for (let i = 0; i < 12; ++i) {
+          let h = i || 12;
+          hours.push(
+            <div key={h} className="timegrid__line">
+              <div className="timegrid__hour">{h}:00</div>
+              <div className="timegrid__min">
+                <div className="timegrid__min00">:00</div>
+                <div className="timegrid__min15">:15</div>
+                <div className="timegrid__min30">:30</div>
+                <div className="timegrid__min45">:45</div>
+              </div>
+            </div>
+          )
+      }
+      return hours;
+    }
+}
+
 export default class TimePicker extends Component {
     constructor(props) {
         super(props)
@@ -50,42 +90,10 @@ export default class TimePicker extends Component {
                     <i className="fa fa-angle-down"></i>
                 </div>
                 <div className="timepicker__droplist">
-                    <div className="timegrid__container">
-                      {this.renderTimeGridColumn("am")}
-                      {this.renderTimeGridColumn("pm")}
-                    </div>
+                  <TimeGrid />
                 </div>
             </div>
         )
-    }
-
-    // meridiem argument should be "am" or "pm"
-    renderTimeGridColumn(meridiem) {
-      return (
-        <div className={"timegrid__"+meridiem+"col"}>
-          <div className="timegrid__colheader">{meridiem.toUpperCase()}</div>
-          {this.renderTimeGridHours()}
-        </div>
-      )
-    }
-
-    renderTimeGridHours() {
-      let hours = [];
-      for (let i = 0; i < 12; ++i) {
-          let h = i || 12;
-          hours.push(
-            <div key={h} className="timegrid__line">
-              <div className="timegrid__hour">{h}:00</div>
-              <div className="timegrid__min">
-                <div className="timegrid__min00">:00</div>
-                <div className="timegrid__min15">:15</div>
-                <div className="timegrid__min30">:30</div>
-                <div className="timegrid__min45">:45</div>
-              </div>
-            </div>
-          )
-      }
-      return hours;
     }
 
     renderChoices() {
