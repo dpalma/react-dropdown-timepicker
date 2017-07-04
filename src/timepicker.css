@@ -2,36 +2,36 @@
 }
 
 .timepicker__container__open > div.timepicker__droplist {
-    transform: scale(1,1)
+  transform: scale(1,1)
 }
 
 .timepicker__container__closed > div.timepicker__droplist {
-    transform: scale(1,0)
+  transform: scale(1,0)
 }
 
 
 .timepicker__display {
-    cursor: pointer;
-    border: solid 1px black;
-    box-sizing: border-box;
+  cursor: pointer;
+  border: solid 1px black;
+  box-sizing: border-box;
 }
 
 div.timepicker__droplist {
 }
 
 .timepicker__droplist>div {
-    position: absolute;
-    cursor: pointer;
-    background: white;
+  position: absolute;
+  cursor: pointer;
+  background: white;
 }
 
 .timepicker__droplist>div>div {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 
 .timepicker__droplist>div>div:hover {
-    background:#F0F0F0;
+  background:#F0F0F0;
 }
 
 .timegrid__container {
@@ -54,7 +54,13 @@ div.timepicker__droplist {
   display: table-cell;
 }
 
+/* show minutes on hover over hour */
+.timegrid__hour:hover > .timegrid__min {
+  transform: scale(1,1)
+}
+
 .timegrid__min {
+  transform: scale(0,1)
 }
 
 .timegrid__min00, .timegrid__min15, .timegrid__min30, .timegrid__min45 {
