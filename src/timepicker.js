@@ -5,6 +5,14 @@ import css from './timepicker.css'
 
 import 'font-awesome/scss/font-awesome.scss'
 
+function TimeGridCell(props) {
+  let minstr = props.minute.toString().padStart(2, "0");
+  return (
+    <div className={"timegrid__min timegrid__min"+minstr}
+      onClick={()=>console.log("clicked "+props.hour.toString()+":"+props.minute.toString())}>{":"+minstr}</div>
+  )
+}
+
 class TimeGrid extends Component {
     render() {
       return(
@@ -20,23 +28,23 @@ class TimeGrid extends Component {
       return (
         <div className={"timegrid__"+meridiem+"col"}>
           <div className="timegrid__colheader">{meridiem.toUpperCase()}</div>
-          {this.renderTimeGridHours()}
+          {this.renderTimeGridHours(meridiem)}
         </div>
       )
     }
 
-    renderTimeGridHours() {
+    renderTimeGridHours(meridiem) {
       let hours = [];
       for (let i = 0; i < 12; ++i) {
           let h = i || 12;
           hours.push(
             <div key={h} className="timegrid__hour">
               <div className="timegrid__hourtext">{h}:00</div>
-              <div className="timegrid__min">
-                <div className="timegrid__min00">:00</div>
-                <div className="timegrid__min15">:15</div>
-                <div className="timegrid__min30">:30</div>
-                <div className="timegrid__min45">:45</div>
+              <div className="timegrid__minutes">
+                <TimeGridCell hour={h} minute={0} />
+                <TimeGridCell hour={h} minute={15} />
+                <TimeGridCell hour={h} minute={30} />
+                <TimeGridCell hour={h} minute={45} />
               </div>
             </div>
           )
