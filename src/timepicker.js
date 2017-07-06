@@ -53,12 +53,38 @@ class TimeGrid extends Component {
     }
 }
 
+// MDN polyfill for String.prototype.padStart
+function padStart(s, l, fill) {
+  if (s.length > l) {
+    return s;
+  } else {
+    l = l - s.length;
+    if (l > fill.length) {
+      fill += fill.repeat(l/fill.length);
+    }
+    return fill.slice(0,l) + s;
+  }
+}
+
 export default class TimePicker extends Component {
     constructor(props) {
         super(props)
+        if (props.time instanceof Date) {
+          var t = {
+            hour: props.time.getHours(),
+            minute: props.time.getMinutes()
+          };
+        } else if (props.time instanceof Object) {
+          var t = props.time;
+        } else {
+          var t = {
+            hour: 12,
+            minute: 0
+          }
+        }
         this.state = {
-            isOpen: false,
-            value: 12
+          isOpen: false,
+          time: t
         }
         this.showDropdown = this.showDropdown.bind(this);
         this.hideDropdown = this.hideDropdown.bind(this);
@@ -91,10 +117,11 @@ export default class TimePicker extends Component {
     }
 
     render() {
+        let timeStr = this.state.time.hour.toString() + ":" + padStart(this.state.time.minute.toString(), 2, "0");
         return (
             <div className={"timepicker__container" + (this.state.isOpen ? " timepicker__container__open" : " timepicker__container__closed")}>
                 <div className="timepicker__display" onClick={this.toggleDropdown}>
-                    {this.state.value}
+                    {timeStr}
                     <i className="fa fa-clock-o"></i>
                 </div>
                 <div className="timepicker__droplist">
@@ -115,6 +142,6 @@ export default class TimePicker extends Component {
 }
 
 TimePicker.PropTypes = {
-    value: PropTypes.object,
+    time: PropTypes.any,
     onChange: PropTypes.func
 }
