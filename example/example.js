@@ -7,7 +7,6 @@ export default class Example extends Component {
         return(
             <div>
                 <TimePicker />
-                <div>Example</div>
             </div>
         )
     }
