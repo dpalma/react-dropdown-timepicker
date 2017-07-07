@@ -134,15 +134,6 @@ export default class TimePicker extends Component {
             </div>
         )
     }
-
-    renderChoices() {
-        let choices = [];
-        for (let i = 0; i < 12; ++i) {
-            let t = i || 12;
-            choices.push(<div key={t} onClick={this.selectItem.bind(this, t)}>{t}</div>)
-        }
-        return choices;
-    }
 }
 
 TimePicker.PropTypes = {
