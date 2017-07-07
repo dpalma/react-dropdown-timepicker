@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, shallow } from 'enzyme';
+import { render, mount } from 'enzyme';
 
 import TimePicker from '../src/timepicker';
 
@@ -25,7 +25,13 @@ describe("TimePicker component", ()=>{
   })
 
   describe("selection", ()=>{
+    xtest("clicking a minute cell selects that hour:minute", () => {
+      const tp = mount(<TimePicker />);
+      tp.find(".timegrid__hour18 .timegrid__min30").simulate("click");
+      expect(tp.find(".timepicker__display").text()).toEqual("6:30");
+    })
 
+    test("clicking an hour cell selects that hour:00")
   })
 
 })

@@ -37,10 +37,12 @@ class TimeGrid extends Component {
 
     renderTimeGridHours(meridiem) {
       let hours = [];
+      const hourBase = meridiem === "pm" ? 12 : 0;
       for (let i = 0; i < 12; ++i) {
           let h = i || 12;
+          let hstr = padStart((i + hourBase).toString(), 2, "0");
           hours.push(
-            <div key={h} className="timegrid__hour">
+            <div key={h} className={"timegrid__hour timegrid__hour"+hstr}>
               <div className="timegrid__hourtext">{h}:00</div>
               <div className="timegrid__minutes">
                 <TimeGridCell hour={h} minute={0} />
