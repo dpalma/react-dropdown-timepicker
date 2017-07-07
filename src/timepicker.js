@@ -10,8 +10,7 @@ import 'font-awesome/scss/font-awesome.scss'
 function TimeGridCell(props) {
   let minstr = padStart(props.minute.toString(), 2, "0");
   return (
-    <div className={"timegrid__min timegrid__min"+minstr}
-      onClick={()=>console.log("clicked "+props.hour.toString()+":"+props.minute.toString())}>{":"+minstr}</div>
+    <div className={"timegrid__min timegrid__min"+minstr} onClick={props.onClick}>{":"+minstr}</div>
   )
 }
 
@@ -35,26 +34,36 @@ class TimeGrid extends Component {
       )
     }
 
+    handleClickTimeCell(t, src, event) {
+      this.props.onChange(t);
+    }
+
     renderTimeGridHours(meridiem) {
       let hours = [];
       const hourBase = meridiem === "pm" ? 12 : 0;
       for (let i = 0; i < 12; ++i) {
           let h = i || 12;
-          let hstr = padStart((i + hourBase).toString(), 2, "0");
+          let h24 = i + hourBase;
+          let hstr = padStart(h24.toString(), 2, "0");
           hours.push(
             <div key={h} className={"timegrid__hour timegrid__hour"+hstr}>
               <div className="timegrid__hourtext">{h}:00</div>
               <div className="timegrid__minutes">
-                <TimeGridCell hour={h} minute={0} />
-                <TimeGridCell hour={h} minute={15} />
-                <TimeGridCell hour={h} minute={30} />
-                <TimeGridCell hour={h} minute={45} />
+                <TimeGridCell hour={h} minute={0} onClick={this.handleClickTimeCell.bind(this,{h24,m:0})} />
+                <TimeGridCell hour={h} minute={15} onClick={this.handleClickTimeCell.bind(this,{h24,m:15})} />
+                <TimeGridCell hour={h} minute={30} onClick={this.handleClickTimeCell.bind(this,{h24,m:30})} />
+                <TimeGridCell hour={h} minute={45} onClick={this.handleClickTimeCell.bind(this,{h24,m:45})} />
               </div>
             </div>
           )
       }
       return hours;
     }
+}
+
+TimeGrid.PropTypes = {
+    time: PropTypes.any,
+    onChange: PropTypes.func
 }
 
 export default class TimePicker extends Component {
@@ -107,6 +116,10 @@ export default class TimePicker extends Component {
         }
     }
 
+    handleTimeChange(t) {
+      console.log("clicked "+t.h24.toString()+":"+t.m.toString())
+    }
+
     render() {
         let timeStr = this.state.time.hour.toString() + ":" + padStart(this.state.time.minute.toString(), 2, "0");
         return (
@@ -116,7 +129,7 @@ export default class TimePicker extends Component {
                     <i className="fa fa-clock-o"></i>
                 </div>
                 <div className="timepicker__droplist">
-                  <TimeGrid />
+                  <TimeGrid onChange={this.handleTimeChange.bind(this)} />
                 </div>
             </div>
         )
