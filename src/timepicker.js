@@ -3,10 +3,12 @@ import PropTypes from 'prop-types'
 
 import css from './timepicker.css'
 
+import padStart from 'lodash.padstart'
+
 import 'font-awesome/scss/font-awesome.scss'
 
 function TimeGridCell(props) {
-  let minstr = props.minute.toString().padStart(2, "0");
+  let minstr = padStart(props.minute.toString(), 2, "0");
   return (
     <div className={"timegrid__min timegrid__min"+minstr}
       onClick={()=>console.log("clicked "+props.hour.toString()+":"+props.minute.toString())}>{":"+minstr}</div>
@@ -51,19 +53,6 @@ class TimeGrid extends Component {
       }
       return hours;
     }
-}
-
-// MDN polyfill for String.prototype.padStart
-function padStart(s, l, fill) {
-  if (s.length > l) {
-    return s;
-  } else {
-    l = l - s.length;
-    if (l > fill.length) {
-      fill += fill.repeat(l/fill.length);
-    }
-    return fill.slice(0,l) + s;
-  }
 }
 
 export default class TimePicker extends Component {

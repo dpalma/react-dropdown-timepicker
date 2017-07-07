@@ -21,6 +21,7 @@
     }
   },
   "dependencies": {
+    "lodash.padstart": "^4.6.1",
     "webpack": "^3.0.0"
   },
   "devDependencies": {
