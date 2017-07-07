@@ -117,7 +117,7 @@ export default class TimePicker extends Component {
     }
 
     handleTimeChange(t) {
-      console.log("clicked "+t.h24.toString()+":"+t.m.toString())
+      this.setState({time:{hour:t.h24,minute:t.m}})
     }
 
     render() {

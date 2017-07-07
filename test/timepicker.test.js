@@ -25,10 +25,16 @@ describe("TimePicker component", ()=>{
   })
 
   describe("selection", ()=>{
-    xtest("clicking a minute cell selects that hour:minute", () => {
+    test("clicking an AM-hour minute cell selects that hour:minute", () => {
       const tp = mount(<TimePicker />);
-      tp.find(".timegrid__hour18 .timegrid__min30").simulate("click");
+      tp.find(".timegrid__hour06 .timegrid__min30").simulate("click");
       expect(tp.find(".timepicker__display").text()).toEqual("6:30");
+    })
+
+    xtest("clicking a PM-hour minute cell selects that hour:minute", () => {
+      const tp = mount(<TimePicker />);
+      tp.find(".timegrid__hour23 .timegrid__min15").simulate("click");
+      expect(tp.find(".timepicker__display").text()).toEqual("11:15");
     })
 
     test("clicking an hour cell selects that hour:00")
