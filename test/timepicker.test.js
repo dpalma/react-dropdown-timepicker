@@ -46,41 +46,29 @@ describe("TimePicker component", ()=>{
           minute: 0
         });
       })
+
+      for (let m of [0, 15, 30, 45]) {
+        let mstr = padStart(m.toString(), 2, "0")
+
+        test("clicking "+h.toString()+":"+mstr+" selects that hour:minute", () => {
+          const tp = mount(<TimePicker />);
+          tp.find(".timegrid__hour"+hstr+" .timegrid__min"+mstr).simulate("click");
+          expect(tp.find(".timepicker__display").text()).toEqual(h.toString()+":"+mstr);
+        })
+
+        test("clicking "+h.toString()+":"+mstr+" calls onChange", () => {
+          let mockCallback = jest.fn();
+          const tp = mount(<TimePicker onChange={mockCallback} />);
+          tp.find(".timegrid__hour"+hstr+" .timegrid__min"+mstr).simulate("click");
+          expect(mockCallback.mock.calls.length).toBe(1);
+          expect(mockCallback.mock.calls[0][0]).toEqual({
+            hour: h,
+            minute: m
+          });
+        })
+      }
     }
 
-    test("clicking an AM-hour minute cell selects that hour:minute", () => {
-      const tp = mount(<TimePicker />);
-      tp.find(".timegrid__hour06 .timegrid__min30").simulate("click");
-      expect(tp.find(".timepicker__display").text()).toEqual("6:30");
-    })
-
-    test("clicking a PM-hour minute cell selects that hour:minute", () => {
-      const tp = mount(<TimePicker />);
-      tp.find(".timegrid__hour23 .timegrid__min15").simulate("click");
-      expect(tp.find(".timepicker__display").text()).toEqual("23:15");
-    })
-
-    test("clicking an AM-hour minute cell calls onChange", () => {
-      let mockCallback = jest.fn();
-      const tp = mount(<TimePicker onChange={mockCallback} />);
-      tp.find(".timegrid__hour06 .timegrid__min30").simulate("click");
-      expect(mockCallback.mock.calls.length).toBe(1);
-      expect(mockCallback.mock.calls[0][0]).toEqual({
-        hour: 6,
-        minute: 30
-      });
-    })
-
-    test("clicking a PM-hour minute cell calls onChange", () => {
-      let mockCallback = jest.fn();
-      const tp = mount(<TimePicker onChange={mockCallback} />);
-      tp.find(".timegrid__hour23 .timegrid__min15").simulate("click");
-      expect(mockCallback.mock.calls.length).toBe(1);
-      expect(mockCallback.mock.calls[0][0]).toEqual({
-        hour: 23,
-        minute: 15
-      });
-    })
   })
 
 })
