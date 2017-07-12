@@ -47,7 +47,7 @@ class TimeGrid extends Component {
           let hstr = padStart(h24.toString(), 2, "0");
           hours.push(
             <div key={h} className={"timegrid__hour timegrid__hour"+hstr}>
-              <div className="timegrid__hourtext">{h}:00</div>
+              <div className="timegrid__hourtext" onClick={this.handleClickTimeCell.bind(this,{h24,m:0})}>{h}:00</div>
               <div className="timegrid__minutes">
                 <TimeGridCell hour={h} minute={0} onClick={this.handleClickTimeCell.bind(this,{h24,m:0})} />
                 <TimeGridCell hour={h} minute={15} onClick={this.handleClickTimeCell.bind(this,{h24,m:15})} />
@@ -109,15 +109,11 @@ export default class TimePicker extends Component {
         }
     }
 
-    selectItem(value) {
-        this.setState({value})
-        if (this.props.onChange) {
-            this.props.onChange();
-        }
-    }
-
     handleTimeChange(t) {
       this.setState({time:{hour:t.h24,minute:t.m}})
+      if (this.props.onChange) {
+          this.props.onChange({hour:t.h24,minute:t.m});
+      }
     }
 
     render() {
