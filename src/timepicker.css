@@ -1,4 +1,5 @@
 .timepicker__container {
+  display: inline-block;
 }
 
 .timepicker__container__open > div.timepicker__droplist {
@@ -16,16 +17,17 @@
 }
 
 div.timepicker__droplist {
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
 }
 
 .timepicker__droplist>div {
-  position: absolute;
   cursor: pointer;
   background: white;
 }
 
 .timepicker__droplist>div>div {
-  box-sizing: border-box;
 }
 
 
