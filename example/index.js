@@ -1,9 +1,9 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import Content from './content'
+import Example from './example'
 
 render(
-    <Content />,
-    document.getElementById("root")
+    <Example />,
+    document.getElementById("example")
 )
