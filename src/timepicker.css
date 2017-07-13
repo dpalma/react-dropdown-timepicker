@@ -27,6 +27,7 @@ div.timepicker__droplist {
   position: absolute;
   z-index: 1000;
   background-color: white;
+  border: 1px solid black;
 }
 
 .timepicker__droplist>div {
@@ -58,6 +59,10 @@ div.timepicker__droplist {
   display: table-row;
 }
 
+.timegrid__colheader, .timegrid__hour>div, .timegrid__min {
+  padding: 1px 2px;
+}
+
 .timegrid__hourtext {
   display: table-cell;
 }
@@ -73,6 +78,10 @@ div.timepicker__droplist {
 
 .timegrid__min {
   display: table-cell;
+}
+
+.timegrid__min:hover {
+  background-color: lightgray;
 }
 
 .timegrid__min00, .timegrid__min15, .timegrid__min30, .timegrid__min45 {
