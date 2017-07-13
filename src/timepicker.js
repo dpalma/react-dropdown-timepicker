@@ -10,7 +10,7 @@ import 'font-awesome/scss/font-awesome.scss'
 function TimeGridCell(props) {
   let minstr = padStart(props.minute.toString(), 2, "0");
   return (
-    <div className={"timegrid__min timegrid__min"+minstr+(props.selected?" timegrid__min-selected":"")}
+    <div className={"timegrid__min timegrid__min"+minstr+(props.selected?" timegrid__min-selected":" timegrid__min-unselected")}
       onClick={props.onClick}>{":"+minstr}</div>
   )
 }
@@ -50,7 +50,7 @@ class TimeGrid extends Component {
           let hstr = padStart(h24.toString(), 2, "0");
           hours.push(
             <div key={h} className={"timegrid__hour timegrid__hour"+hstr}>
-              <div className={"timegrid__hourtext" + (selHour===h24?" timegrid__hourtext-selected":"")}
+              <div className={"timegrid__hourtext" + (selHour===h24?" timegrid__hourtext-selected":" timegrid__hourtext-unselected")}
                 onClick={this.handleClickTimeCell.bind(this,{h24,m:0})}>{h}:00</div>
               <div className="timegrid__minutes">
                 <TimeGridCell hour={h} minute={0} selected={selHour===h24&&selMin===0} onClick={this.handleClickTimeCell.bind(this,{h24,m:0})} />
