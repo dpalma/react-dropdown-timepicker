@@ -24,8 +24,9 @@ module.exports = {
 
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'example/index.ejs'
+            template: 'example/index.ejs',
+						title: "Simple React Time Picker"
         })
     ]
-    
+
 }
