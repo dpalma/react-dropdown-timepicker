@@ -29,17 +29,18 @@ describe("TimePicker component", ()=>{
   describe("selection", ()=>{
     for (let h = 0; h < 24; ++h) {
       let hstr = padStart(h.toString(), 2, "0")
+      let hselector = ".timegrid__hour"+hstr+" .timegrid__hourtext"
 
-      test("clicking hour "+hstr+" selects "+hstr+":00", () => {
+      test("clicking hour "+hstr+" displays "+hstr+":00", () => {
         const tp = mount(<TimePicker />);
-        tp.find(".timegrid__hour"+hstr+" .timegrid__hourtext").simulate("click");
+        tp.find(hselector).simulate("click");
         expect(tp.find(".timepicker__display").text()).toEqual(h.toString()+":00");
       })
 
       test("clicking hour "+hstr+" calls onChange", () => {
         let mockCallback = jest.fn();
         const tp = mount(<TimePicker onChange={mockCallback} />);
-        tp.find(".timegrid__hour"+hstr+" .timegrid__hourtext").simulate("click");
+        tp.find(hselector).simulate("click");
         expect(mockCallback.mock.calls.length).toBe(1);
         expect(mockCallback.mock.calls[0][0]).toEqual({
           hour: h,
@@ -49,14 +50,15 @@ describe("TimePicker component", ()=>{
 
       for (let m of [0, 15, 30, 45]) {
         let mstr = padStart(m.toString(), 2, "0")
+        let hmstr = h.toString()+":"+mstr;
 
-        test("clicking "+h.toString()+":"+mstr+" selects that hour:minute", () => {
+        test("clicking "+hmstr+" displays that hour:minute", () => {
           const tp = mount(<TimePicker />);
           tp.find(".timegrid__hour"+hstr+" .timegrid__min"+mstr).simulate("click");
-          expect(tp.find(".timepicker__display").text()).toEqual(h.toString()+":"+mstr);
+          expect(tp.find(".timepicker__display").text()).toEqual(hmstr);
         })
 
-        test("clicking "+h.toString()+":"+mstr+" calls onChange", () => {
+        test("clicking "+hmstr+" calls onChange", () => {
           let mockCallback = jest.fn();
           const tp = mount(<TimePicker onChange={mockCallback} />);
           tp.find(".timegrid__hour"+hstr+" .timegrid__min"+mstr).simulate("click");
