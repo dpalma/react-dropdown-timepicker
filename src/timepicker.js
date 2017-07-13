@@ -125,7 +125,7 @@ export default class TimePicker extends Component {
         return (
             <div className={"timepicker__container" + (this.state.isOpen ? " timepicker__container__open" : " timepicker__container__closed")}>
                 <div className="timepicker__display" onClick={this.toggleDropdown}>
-                    {timeStr}
+                    <span>{timeStr}</span>
                     <i className="fa fa-clock-o"></i>
                 </div>
                 <div className="timepicker__droplist">

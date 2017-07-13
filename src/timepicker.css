@@ -1,5 +1,6 @@
 .timepicker__container {
   display: inline-block;
+  width: 150px;
 }
 
 .timepicker__container__open > div.timepicker__droplist {
@@ -14,6 +15,12 @@
 .timepicker__display {
   cursor: pointer;
   border: solid 1px black;
+  display: flex;
+  justify-content: space-between;
+}
+
+.timepicker__display>i.fa, .timepicker__display>span {
+  padding:4px 4px;
 }
 
 div.timepicker__droplist {
