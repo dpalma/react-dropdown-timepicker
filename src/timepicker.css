@@ -70,3 +70,7 @@ div.timepicker__droplist {
 
 .timegrid__min00, .timegrid__min15, .timegrid__min30, .timegrid__min45 {
 }
+
+.timegrid__hourtext-selected, .timegrid__min-selected {
+  background-color: lightblue;
+}
