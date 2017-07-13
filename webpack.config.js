@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
 	entry: [
-		'./example/index.js',
+		'./pages/index.js',
 	],
 
 	output: {
@@ -24,7 +24,7 @@ module.exports = {
 
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'example/index.ejs',
+            template: 'pages/index.ejs',
 						title: "Simple React Time Picker"
         })
     ]
