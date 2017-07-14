@@ -1,6 +1,7 @@
 .timepicker__container {
   display: inline-block;
   width: 150px;
+  font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
 }
 
 .timepicker__container__open > div.timepicker__droplist {
@@ -17,6 +18,7 @@
   border: solid 1px black;
   display: flex;
   justify-content: space-between;
+  font-size: 11pt;
 }
 
 .timepicker__display>i.fa, .timepicker__display>span {
@@ -28,6 +30,7 @@ div.timepicker__droplist {
   z-index: 1000;
   background-color: white;
   border: 1px solid black;
+  font-size: 10pt;
 }
 
 .timepicker__droplist>div {
