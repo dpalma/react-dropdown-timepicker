@@ -14,7 +14,7 @@ import TimePicker from 'react-simple-time-picker';
 
 render() {
 	<TimePicker
-      time={this.state.time}
-      onChange={this.handleTimeChange.bind(this)} />
+    time={this.state.time}
+    onChange={this.handleTimeChange.bind(this)} />
 }
 ```
