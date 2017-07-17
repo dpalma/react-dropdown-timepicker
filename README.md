@@ -4,13 +4,13 @@ Time picker for ReactJS based on the [Cozi Calendar](https://www.cozi.com/calend
 ## Installation
 
 ```shell
-$ npm install --save react-simple-time-picker
+$ npm install --save react-dropdown-timepicker
 ```
 
 ## Usage
 
 ```javascript
-import TimePicker from 'react-simple-time-picker';
+import TimePicker from 'react-dropdown-timepicker';
 
 render() {
 	<TimePicker
