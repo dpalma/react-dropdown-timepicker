@@ -1,0 +1,53 @@
+<!doctype html public "storage">
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Simple React Time Picker</title>
+  </head>
+  <body>
+    <h1>Simple React Time Picker</h1>
+    <section>
+      <a href="https://github.com/dpalma/react-simple-time-picker">
+        <i class="fa fa-github"></i>
+        Source
+      </a>
+    </section>
+    <section>
+      <h2>Example</h2>
+      <div id="example"></div>
+    </section>
+    <section>
+      <h2>Installation</h2>
+      <pre>
+$ npm install --save react-simple-time-picker
+      </pre>
+    </section>
+    <section>
+      <h2>Usage</h2>
+      <pre><code className="javascript">
+import TimePicker from 'react-simple-time-picker';
+
+render() {
+	&lt;TimePicker
+    time={this.state.time}
+    onChange={this.handleTimeChange.bind(this)} /&gt;
+}
+      </code></pre>
+    </section>
+    <section>
+      <h2>Attributes</h2>
+      <h3>time</h3>
+      <article>
+        Initially selected time to be highlighted in the time selection grid. May be
+        a JavaScript Date object or a simple object with "hour" and "minute" fields.
+        The hour value should be in the range [0, 23].
+      </article>
+      <h3>onChange</h3>
+      <article>
+        Function to be called when a time is selected. The first argument will be
+        a simple object with "hour" and "minute" fields. The hour value will be
+        24-hour format in the range [0,23].
+      </article>
+    </section>
+  <script type="text/javascript" src="bundle.js"></script></body>
+</html>
