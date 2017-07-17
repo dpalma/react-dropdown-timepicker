@@ -1,7 +1,7 @@
 {
-  "name": "react-simple-time-picker",
+  "name": "react-dropdown-timepicker",
   "version": "1.0.0",
-  "description": "Simple time-picker for ReactJS",
+  "description": "Drop-down time-picker for ReactJS",
   "main": "index.js",
   "scripts": {
     "build": "node node_modules/webpack/bin/webpack.js",
@@ -14,7 +14,7 @@
   ],
   "author": "Dan Palma <daniel_palma@yahoo.com>",
   "license": "MIT",
-  "repository": "git@github.com:dpalma/react-simple-time-picker.git",
+  "repository": "git@github.com:dpalma/react-dropdown-timepicker.git",
   "jest": {
     "moduleNameMapper": {
       "\\.(css|less|scss)$": "identity-obj-proxy"
