@@ -113,10 +113,17 @@ export default class TimePicker extends Component {
         }
     }
 
-    handleTimeChange(t) {
+    handleTimeGridChange(t) {
       this.setState({time:{hour:t.h24,minute:t.m}})
       if (this.props.onChange) {
           this.props.onChange({hour:t.h24,minute:t.m});
+      }
+    }
+
+    handleInputChange(e) {
+      let parsed = TimePicker.parseTimeString(e.target.value)
+      if (parsed) {
+        this.setState({time:parsed})
       }
     }
 
@@ -125,15 +132,30 @@ export default class TimePicker extends Component {
         return (
             <div className={"timepicker__container" + (this.state.isOpen ? " timepicker__container__open" : " timepicker__container__closed")}>
                 <div className="timepicker__display" onClick={this.toggleDropdown}>
-                    <span>{timeStr}</span>
+                    <input type="text" value={timeStr} onChange={this.handleInputChange.bind(this)}></input>
                     <i className="fa fa-clock-o"></i>
                 </div>
                 <div className="timepicker__droplist">
-                  <TimeGrid selectedTime={this.state.time} onChange={this.handleTimeChange.bind(this)} />
+                  <TimeGrid selectedTime={this.state.time} onChange={this.handleTimeGridChange.bind(this)} />
                 </div>
             </div>
         )
     }
+}
+
+TimePicker.parseTimeString = function(ts) {
+  let split = ts.indexOf(":");
+  if (split < 0) {
+    return {
+      hour: Number(ts),
+      minute: 0
+    };
+  } else {
+    return {
+      hour: Number(ts.substr(0, split)),
+      minute: Number(ts.substr(split+1))
+    }
+  }
 }
 
 TimePicker.PropTypes = {

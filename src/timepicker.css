@@ -1,6 +1,5 @@
 .timepicker__container {
   display: inline-block;
-  width: 150px;
   font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
 }
 
@@ -23,6 +22,15 @@
 
 .timepicker__display>i.fa, .timepicker__display>span {
   padding:4px 4px;
+}
+
+.timepicker__display>input {
+  width: 150px;
+}
+
+.timepicker__display>input, .timepicker__display>input:focus {
+  border: none;
+  outline: none;
 }
 
 div.timepicker__droplist {
