@@ -40,8 +40,8 @@ class TimeGrid extends Component {
     }
 
     renderTimeGridHours(meridiem) {
-      const selHour = this.props.selectedTime.hour;
-      const selMin = this.props.selectedTime.minute;
+      const selHour = this.props.selectedTime && this.props.selectedTime.hour;
+      const selMin = this.props.selectedTime && this.props.selectedTime.minute;
       let hours = [];
       const hourBase = meridiem === "pm" ? 12 : 0;
       for (let i = 0; i < 12; ++i) {
@@ -66,7 +66,7 @@ class TimeGrid extends Component {
 }
 
 TimeGrid.PropTypes = {
-    time: PropTypes.any,
+    selectedTime: PropTypes.any,
     onChange: PropTypes.func
 }
 
@@ -88,7 +88,8 @@ export default class TimePicker extends Component {
         }
         this.state = {
           isOpen: false,
-          time: t
+          time: t,
+          raw: ""
         }
         this.showDropdown = this.showDropdown.bind(this);
         this.hideDropdown = this.hideDropdown.bind(this);
@@ -122,13 +123,14 @@ export default class TimePicker extends Component {
 
     handleInputChange(e) {
       let parsed = TimePicker.parseTimeString(e.target.value)
-      if (parsed) {
-        this.setState({time:parsed})
-      }
+      this.setState({
+        raw: e.target.value,
+        time: parsed
+      })
     }
 
     render() {
-        let timeStr = this.state.time.hour.toString() + ":" + padStart(this.state.time.minute.toString(), 2, "0");
+        let timeStr = this.state.time ? this.state.time.hour.toString() + ":" + padStart(this.state.time.minute.toString(), 2, "0") : this.state.raw;
         return (
             <div className={"timepicker__container" + (this.state.isOpen ? " timepicker__container__open" : " timepicker__container__closed")}>
                 <div className="timepicker__display" onClick={this.toggleDropdown}>
@@ -146,14 +148,17 @@ export default class TimePicker extends Component {
 TimePicker.parseTimeString = function(ts) {
   let split = ts.indexOf(":");
   if (split < 0) {
-    return {
-      hour: Number(ts),
-      minute: 0
-    };
+    return null
   } else {
-    return {
-      hour: Number(ts.substr(0, split)),
-      minute: Number(ts.substr(split+1))
+    let hstr = ts.substr(0, split)
+    let mstr = ts.substr(split+1)
+    if (hstr.length < 1 || mstr.length < 2) {
+      return null
+    } else {
+      return {
+        hour: Number(hstr),
+        minute: Number(mstr)
+      }
     }
   }
 }
