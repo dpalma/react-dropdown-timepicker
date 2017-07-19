@@ -83,8 +83,7 @@ describe("TimePicker component", ()=>{
         let hmColonSep = hstr+":"+mstr;
         test("can parse "+hmColonSep, ()=>{
           let result = TimePicker.parseTimeString(hmColonSep);
-          expect(result.hour).toEqual(h);
-          expect(result.minute).toEqual(m);
+          expect(result).toEqual({hour:h,minute:m});
         })
       }
     }
@@ -92,14 +91,12 @@ describe("TimePicker component", ()=>{
     for (let h = 0; h < 10; ++h) {
       test("parses single-digit "+h.toString()+" as "+h.toString()+":00", ()=> {
         let result = TimePicker.parseTimeString(h.toString());
-        expect(result.hour).toEqual(h);
-        expect(result.minute).toEqual(0);
+        expect(result).toEqual({hour:h,minute:0});
       })
 
       test("parses partial "+h.toString()+": as "+h.toString()+":00", ()=> {
         let result = TimePicker.parseTimeString(h.toString()+":");
-        expect(result.hour).toEqual(h);
-        expect(result.minute).toEqual(0);
+        expect(result).toEqual({hour:h,minute:0});
       })
     }
 
@@ -108,14 +105,12 @@ describe("TimePicker component", ()=>{
 
       test("parses two-digit "+hstr+" as "+h.toString()+":00", ()=>{
         let result = TimePicker.parseTimeString(hstr);
-        expect(result.hour).toEqual(h);
-        expect(result.minute).toEqual(0);
+        expect(result).toEqual({hour:h,minute:0});
       })
 
       test("parses partial "+hstr+": as "+h.toString()+":00", ()=>{
         let result = TimePicker.parseTimeString(hstr+":");
-        expect(result.hour).toEqual(h);
-        expect(result.minute).toEqual(0);
+        expect(result).toEqual({hour:h,minute:0});
       })
     }
 
