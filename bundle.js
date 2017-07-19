@@ -23495,7 +23495,7 @@ exports.default = Example;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -23527,194 +23527,221 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function TimeGridCell(props) {
-    var minstr = (0, _lodash2.default)(props.minute.toString(), 2, "0");
-    return _react2.default.createElement(
-        'div',
-        { className: "timegrid__min timegrid__min" + minstr + (props.selected ? " timegrid__min-selected" : " timegrid__min-unselected"),
-            onClick: props.onClick },
-        ":" + minstr
-    );
+  var minstr = (0, _lodash2.default)(props.minute.toString(), 2, "0");
+  return _react2.default.createElement(
+    'div',
+    { className: "timegrid__min timegrid__min" + minstr + (props.selected ? " timegrid__min-selected" : " timegrid__min-unselected"),
+      onClick: props.onClick },
+    ":" + minstr
+  );
 }
 
 var TimeGrid = function (_Component) {
-    _inherits(TimeGrid, _Component);
+  _inherits(TimeGrid, _Component);
 
-    function TimeGrid() {
-        _classCallCheck(this, TimeGrid);
+  function TimeGrid() {
+    _classCallCheck(this, TimeGrid);
 
-        return _possibleConstructorReturn(this, (TimeGrid.__proto__ || Object.getPrototypeOf(TimeGrid)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (TimeGrid.__proto__ || Object.getPrototypeOf(TimeGrid)).apply(this, arguments));
+  }
+
+  _createClass(TimeGrid, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'timegrid__container' },
+        this.renderTimeGridColumn("am"),
+        this.renderTimeGridColumn("pm")
+      );
     }
 
-    _createClass(TimeGrid, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                { className: 'timegrid__container' },
-                this.renderTimeGridColumn("am"),
-                this.renderTimeGridColumn("pm")
-            );
-        }
+    // meridiem argument should be "am" or "pm"
 
-        // meridiem argument should be "am" or "pm"
+  }, {
+    key: 'renderTimeGridColumn',
+    value: function renderTimeGridColumn(meridiem) {
+      return _react2.default.createElement(
+        'div',
+        { className: "timegrid__" + meridiem + "col" },
+        _react2.default.createElement(
+          'div',
+          { className: 'timegrid__colheader' },
+          meridiem.toUpperCase()
+        ),
+        this.renderTimeGridHours(meridiem)
+      );
+    }
+  }, {
+    key: 'handleClickTimeCell',
+    value: function handleClickTimeCell(t, src, event) {
+      this.props.onChange(t);
+    }
+  }, {
+    key: 'renderTimeGridHours',
+    value: function renderTimeGridHours(meridiem) {
+      var selHour = this.props.selectedTime && this.props.selectedTime.hour;
+      var selMin = this.props.selectedTime && this.props.selectedTime.minute;
+      var hours = [];
+      var hourBase = meridiem === "pm" ? 12 : 0;
+      for (var i = 0; i < 12; ++i) {
+        var h = i || 12;
+        var h24 = i + hourBase;
+        var hstr = (0, _lodash2.default)(h24.toString(), 2, "0");
+        hours.push(_react2.default.createElement(
+          'div',
+          { key: h, className: "timegrid__hour timegrid__hour" + hstr },
+          _react2.default.createElement(
+            'div',
+            { className: "timegrid__hourtext" + (selHour === h24 ? " timegrid__hourtext-selected" : " timegrid__hourtext-unselected"),
+              onClick: this.handleClickTimeCell.bind(this, { h24: h24, m: 0 }) },
+            h,
+            ':00'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'timegrid__minutes' },
+            _react2.default.createElement(TimeGridCell, { hour: h, minute: 0, selected: selHour === h24 && selMin === 0, onClick: this.handleClickTimeCell.bind(this, { h24: h24, m: 0 }) }),
+            _react2.default.createElement(TimeGridCell, { hour: h, minute: 15, selected: selHour === h24 && selMin === 15, onClick: this.handleClickTimeCell.bind(this, { h24: h24, m: 15 }) }),
+            _react2.default.createElement(TimeGridCell, { hour: h, minute: 30, selected: selHour === h24 && selMin === 30, onClick: this.handleClickTimeCell.bind(this, { h24: h24, m: 30 }) }),
+            _react2.default.createElement(TimeGridCell, { hour: h, minute: 45, selected: selHour === h24 && selMin === 45, onClick: this.handleClickTimeCell.bind(this, { h24: h24, m: 45 }) })
+          )
+        ));
+      }
+      return hours;
+    }
+  }]);
 
-    }, {
-        key: 'renderTimeGridColumn',
-        value: function renderTimeGridColumn(meridiem) {
-            return _react2.default.createElement(
-                'div',
-                { className: "timegrid__" + meridiem + "col" },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'timegrid__colheader' },
-                    meridiem.toUpperCase()
-                ),
-                this.renderTimeGridHours(meridiem)
-            );
-        }
-    }, {
-        key: 'handleClickTimeCell',
-        value: function handleClickTimeCell(t, src, event) {
-            this.props.onChange(t);
-        }
-    }, {
-        key: 'renderTimeGridHours',
-        value: function renderTimeGridHours(meridiem) {
-            var selHour = this.props.selectedTime.hour;
-            var selMin = this.props.selectedTime.minute;
-            var hours = [];
-            var hourBase = meridiem === "pm" ? 12 : 0;
-            for (var i = 0; i < 12; ++i) {
-                var h = i || 12;
-                var h24 = i + hourBase;
-                var hstr = (0, _lodash2.default)(h24.toString(), 2, "0");
-                hours.push(_react2.default.createElement(
-                    'div',
-                    { key: h, className: "timegrid__hour timegrid__hour" + hstr },
-                    _react2.default.createElement(
-                        'div',
-                        { className: "timegrid__hourtext" + (selHour === h24 ? " timegrid__hourtext-selected" : " timegrid__hourtext-unselected"),
-                            onClick: this.handleClickTimeCell.bind(this, { h24: h24, m: 0 }) },
-                        h,
-                        ':00'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'timegrid__minutes' },
-                        _react2.default.createElement(TimeGridCell, { hour: h, minute: 0, selected: selHour === h24 && selMin === 0, onClick: this.handleClickTimeCell.bind(this, { h24: h24, m: 0 }) }),
-                        _react2.default.createElement(TimeGridCell, { hour: h, minute: 15, selected: selHour === h24 && selMin === 15, onClick: this.handleClickTimeCell.bind(this, { h24: h24, m: 15 }) }),
-                        _react2.default.createElement(TimeGridCell, { hour: h, minute: 30, selected: selHour === h24 && selMin === 30, onClick: this.handleClickTimeCell.bind(this, { h24: h24, m: 30 }) }),
-                        _react2.default.createElement(TimeGridCell, { hour: h, minute: 45, selected: selHour === h24 && selMin === 45, onClick: this.handleClickTimeCell.bind(this, { h24: h24, m: 45 }) })
-                    )
-                ));
-            }
-            return hours;
-        }
-    }]);
-
-    return TimeGrid;
+  return TimeGrid;
 }(_react.Component);
 
 TimeGrid.PropTypes = {
-    time: _propTypes2.default.any,
-    onChange: _propTypes2.default.func
+  selectedTime: _propTypes2.default.any,
+  onChange: _propTypes2.default.func
 };
 
 var TimePicker = function (_Component2) {
-    _inherits(TimePicker, _Component2);
+  _inherits(TimePicker, _Component2);
 
-    function TimePicker(props) {
-        _classCallCheck(this, TimePicker);
+  function TimePicker(props) {
+    _classCallCheck(this, TimePicker);
 
-        var _this2 = _possibleConstructorReturn(this, (TimePicker.__proto__ || Object.getPrototypeOf(TimePicker)).call(this, props));
+    var _this2 = _possibleConstructorReturn(this, (TimePicker.__proto__ || Object.getPrototypeOf(TimePicker)).call(this, props));
 
-        if (props.time instanceof Date) {
-            var t = {
-                hour: props.time.getHours(),
-                minute: props.time.getMinutes()
-            };
-        } else if (props.time instanceof Object) {
-            var t = props.time;
-        } else {
-            var t = {
-                hour: 12,
-                minute: 0
-            };
-        }
-        _this2.state = {
-            isOpen: false,
-            time: t
-        };
-        _this2.showDropdown = _this2.showDropdown.bind(_this2);
-        _this2.hideDropdown = _this2.hideDropdown.bind(_this2);
-        _this2.toggleDropdown = _this2.toggleDropdown.bind(_this2);
-        return _this2;
+    if (props.time instanceof Date) {
+      var t = {
+        hour: props.time.getHours(),
+        minute: props.time.getMinutes()
+      };
+    } else if (props.time instanceof Object) {
+      var t = props.time;
+    } else {
+      var t = {
+        hour: 12,
+        minute: 0
+      };
     }
+    _this2.state = {
+      isOpen: false,
+      time: t,
+      raw: ""
+    };
+    _this2.showDropdown = _this2.showDropdown.bind(_this2);
+    _this2.hideDropdown = _this2.hideDropdown.bind(_this2);
+    _this2.toggleDropdown = _this2.toggleDropdown.bind(_this2);
+    return _this2;
+  }
 
-    _createClass(TimePicker, [{
-        key: 'showDropdown',
-        value: function showDropdown() {
-            this.setState({ isOpen: true });
-            document.addEventListener("click", this.hideDropdown);
-        }
-    }, {
-        key: 'hideDropdown',
-        value: function hideDropdown() {
-            this.setState({ isOpen: false });
-            document.removeEventListener("click", this.hideDropdown);
-        }
-    }, {
-        key: 'toggleDropdown',
-        value: function toggleDropdown() {
-            if (this.state.isOpen) {
-                this.hideDropdown();
-            } else {
-                this.showDropdown();
-            }
-        }
-    }, {
-        key: 'handleTimeChange',
-        value: function handleTimeChange(t) {
-            this.setState({ time: { hour: t.h24, minute: t.m } });
-            if (this.props.onChange) {
-                this.props.onChange({ hour: t.h24, minute: t.m });
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var timeStr = this.state.time.hour.toString() + ":" + (0, _lodash2.default)(this.state.time.minute.toString(), 2, "0");
-            return _react2.default.createElement(
-                'div',
-                { className: "timepicker__container" + (this.state.isOpen ? " timepicker__container__open" : " timepicker__container__closed") },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'timepicker__display', onClick: this.toggleDropdown },
-                    _react2.default.createElement(
-                        'span',
-                        null,
-                        timeStr
-                    ),
-                    _react2.default.createElement('i', { className: 'fa fa-clock-o' })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'timepicker__droplist' },
-                    _react2.default.createElement(TimeGrid, { selectedTime: this.state.time, onChange: this.handleTimeChange.bind(this) })
-                )
-            );
-        }
-    }]);
+  _createClass(TimePicker, [{
+    key: 'showDropdown',
+    value: function showDropdown() {
+      this.setState({ isOpen: true });
+      document.addEventListener("click", this.hideDropdown);
+    }
+  }, {
+    key: 'hideDropdown',
+    value: function hideDropdown() {
+      this.setState({ isOpen: false });
+      document.removeEventListener("click", this.hideDropdown);
+    }
+  }, {
+    key: 'toggleDropdown',
+    value: function toggleDropdown() {
+      if (this.state.isOpen) {
+        this.hideDropdown();
+      } else {
+        this.showDropdown();
+      }
+    }
+  }, {
+    key: 'handleTimeGridChange',
+    value: function handleTimeGridChange(t) {
+      this.setState({ time: { hour: t.h24, minute: t.m } });
+      if (this.props.onChange) {
+        this.props.onChange({ hour: t.h24, minute: t.m });
+      }
+    }
+  }, {
+    key: 'handleInputChange',
+    value: function handleInputChange(e) {
+      var parsed = TimePicker.parseTimeString(e.target.value);
+      this.setState({
+        raw: e.target.value,
+        time: parsed
+      });
+      if (parsed && this.props.onChange) {
+        this.props.onChange(parsed);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var timeStr = this.state.time ? this.state.time.hour.toString() + ":" + (0, _lodash2.default)(this.state.time.minute.toString(), 2, "0") : this.state.raw;
+      return _react2.default.createElement(
+        'div',
+        { className: "timepicker__container" + (this.state.isOpen ? " timepicker__container__open" : " timepicker__container__closed") },
+        _react2.default.createElement(
+          'div',
+          { className: 'timepicker__display', onClick: this.toggleDropdown },
+          _react2.default.createElement('input', { type: 'text', value: timeStr, onChange: this.handleInputChange.bind(this) }),
+          _react2.default.createElement('i', { className: 'fa fa-clock-o' })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'timepicker__droplist' },
+          _react2.default.createElement(TimeGrid, { selectedTime: this.state.time, onChange: this.handleTimeGridChange.bind(this) })
+        )
+      );
+    }
+  }]);
 
-    return TimePicker;
+  return TimePicker;
 }(_react.Component);
 
 exports.default = TimePicker;
 
 
+TimePicker.parseTimeString = function (ts) {
+  var split = ts.indexOf(":");
+  if (split < 0) {
+    return null;
+  } else {
+    var hstr = ts.substr(0, split);
+    var mstr = ts.substr(split + 1);
+    if (hstr.length < 1 || mstr.length < 2) {
+      return null;
+    } else {
+      return {
+        hour: Number(hstr),
+        minute: Number(mstr)
+      };
+    }
+  }
+};
+
 TimePicker.PropTypes = {
-    time: _propTypes2.default.any,
-    onChange: _propTypes2.default.func
+  time: _propTypes2.default.any,
+  onChange: _propTypes2.default.func
 };
 
 /***/ }),
@@ -23860,7 +23887,7 @@ exports = module.exports = __webpack_require__(83)(undefined);
 
 
 // module
-exports.push([module.i, ".timepicker__container {\r\n  display: inline-block;\r\n  width: 150px;\r\n  font-family: Arial,\"Helvetica Neue\",Helvetica,sans-serif;\r\n}\r\n\r\n.timepicker__container__open > div.timepicker__droplist {\r\n  transform: scale(1,1)\r\n}\r\n\r\n.timepicker__container__closed > div.timepicker__droplist {\r\n  transform: scale(1,0)\r\n}\r\n\r\n\r\n.timepicker__display {\r\n  cursor: pointer;\r\n  border: solid 1px black;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  font-size: 11pt;\r\n}\r\n\r\n.timepicker__display>i.fa, .timepicker__display>span {\r\n  padding:4px 4px;\r\n}\r\n\r\ndiv.timepicker__droplist {\r\n  position: absolute;\r\n  z-index: 1000;\r\n  background-color: white;\r\n  border: 1px solid black;\r\n  font-size: 10pt;\r\n}\r\n\r\n.timepicker__droplist>div {\r\n  cursor: pointer;\r\n  background: white;\r\n}\r\n\r\n.timepicker__droplist>div>div {\r\n}\r\n\r\n\r\n.timepicker__droplist>div>div:hover {\r\n  background:#F0F0F0;\r\n}\r\n\r\n.timegrid__container {\r\n}\r\n\r\n.timegrid__amcol, .timegrid__pmcol {\r\n  float: left;\r\n}\r\n\r\n.timegrid__colheader {\r\n  background-color: gray\r\n}\r\n\r\n.timegrid__hour {\r\n  width: 100%;\r\n  display: table-row;\r\n}\r\n\r\n.timegrid__colheader, .timegrid__hour>div, .timegrid__min {\r\n  padding: 1px 2px;\r\n}\r\n\r\n.timegrid__hourtext {\r\n  display: table-cell;\r\n}\r\n\r\n/* show minutes on hover over hour */\r\n.timegrid__hour:hover > .timegrid__minutes {\r\n  transform: scale(1,1)\r\n}\r\n\r\n.timegrid__hourtext-unselected + .timegrid__minutes {\r\n  transform: scale(0,1)\r\n}\r\n\r\n.timegrid__min {\r\n  display: table-cell;\r\n}\r\n\r\n.timegrid__min:hover {\r\n  background-color: lightgray;\r\n}\r\n\r\n.timegrid__min00, .timegrid__min15, .timegrid__min30, .timegrid__min45 {\r\n}\r\n\r\n.timegrid__hourtext-unselected, .timegrid__min-unselected {\r\n}\r\n\r\n.timegrid__hourtext-selected, .timegrid__min-selected {\r\n  background-color: lightblue;\r\n}\r\n", ""]);
+exports.push([module.i, ".timepicker__container {\r\n  display: inline-block;\r\n  font-family: Arial,\"Helvetica Neue\",Helvetica,sans-serif;\r\n}\r\n\r\n.timepicker__container__open > div.timepicker__droplist {\r\n  transform: scale(1,1)\r\n}\r\n\r\n.timepicker__container__closed > div.timepicker__droplist {\r\n  transform: scale(1,0)\r\n}\r\n\r\n\r\n.timepicker__display {\r\n  cursor: pointer;\r\n  border: solid 1px black;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  font-size: 11pt;\r\n}\r\n\r\n.timepicker__display>i.fa, .timepicker__display>span {\r\n  padding:4px 4px;\r\n}\r\n\r\n.timepicker__display>input {\r\n  width: 150px;\r\n}\r\n\r\n.timepicker__display>input, .timepicker__display>input:focus {\r\n  border: none;\r\n  outline: none;\r\n}\r\n\r\ndiv.timepicker__droplist {\r\n  position: absolute;\r\n  z-index: 1000;\r\n  background-color: white;\r\n  border: 1px solid black;\r\n  font-size: 10pt;\r\n}\r\n\r\n.timepicker__droplist>div {\r\n  cursor: pointer;\r\n  background: white;\r\n}\r\n\r\n.timepicker__droplist>div>div {\r\n}\r\n\r\n\r\n.timepicker__droplist>div>div:hover {\r\n  background:#F0F0F0;\r\n}\r\n\r\n.timegrid__container {\r\n}\r\n\r\n.timegrid__amcol, .timegrid__pmcol {\r\n  float: left;\r\n}\r\n\r\n.timegrid__colheader {\r\n  background-color: gray\r\n}\r\n\r\n.timegrid__hour {\r\n  width: 100%;\r\n  display: table-row;\r\n}\r\n\r\n.timegrid__colheader, .timegrid__hour>div, .timegrid__min {\r\n  padding: 1px 2px;\r\n}\r\n\r\n.timegrid__hourtext {\r\n  display: table-cell;\r\n}\r\n\r\n/* show minutes on hover over hour */\r\n.timegrid__hour:hover > .timegrid__minutes {\r\n  transform: scale(1,1)\r\n}\r\n\r\n.timegrid__hourtext-unselected + .timegrid__minutes {\r\n  transform: scale(0,1)\r\n}\r\n\r\n.timegrid__min {\r\n  display: table-cell;\r\n}\r\n\r\n.timegrid__min:hover {\r\n  background-color: lightgray;\r\n}\r\n\r\n.timegrid__min00, .timegrid__min15, .timegrid__min30, .timegrid__min45 {\r\n}\r\n\r\n.timegrid__hourtext-unselected, .timegrid__min-unselected {\r\n}\r\n\r\n.timegrid__hourtext-selected, .timegrid__min-selected {\r\n  background-color: lightblue;\r\n}\r\n", ""]);
 
 // exports
 
