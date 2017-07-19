@@ -127,6 +127,9 @@ export default class TimePicker extends Component {
         raw: e.target.value,
         time: parsed
       })
+      if (parsed && this.props.onChange) {
+        this.props.onChange(parsed);
+      }
     }
 
     render() {

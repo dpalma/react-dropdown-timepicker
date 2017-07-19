@@ -127,12 +127,18 @@ describe("TimePicker component", ()=>{
       })
     })
 
-    xtest("handles over-typing", ()=>{
-      const tp = mount(<TimePicker />);
-      tp.find('input').simulate('change', { target: { value: '1' } })
-      expect(tp.state("time")).toEqual({ hour: 1, minute: 0 })
-      tp.find('input').simulate('change', { target: { value: '14' } })
-      expect(tp.state("time")).toEqual({ hour: 14, minute: 0 })
+    test("calls onChange when time is fully specified", ()=>{
+      let mockCallback = jest.fn();
+      const tp = mount(<TimePicker onChange={mockCallback} />);
+      tp.find('input').simulate('change', { target: { value: '14:34' } });
+      expect(mockCallback).toBeCalled();
+    })
+
+    test("does not call onChange when time is partially entered", ()=>{
+      let mockCallback = jest.fn();
+      const tp = mount(<TimePicker onChange={mockCallback} />);
+      tp.find('input').simulate('change', { target: { value: '12' } });
+      expect(mockCallback).not.toBeCalled();
     })
 
   })
