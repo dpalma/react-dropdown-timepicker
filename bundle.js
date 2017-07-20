@@ -23451,33 +23451,58 @@ var Example = function (_Component) {
 
     var now = new Date();
     _this.state = {
-      hour: now.getHours(),
-      minute: now.getMinutes()
+      time12hr: {
+        hour: now.getHours(),
+        minute: now.getMinutes()
+      },
+      time24hr: {
+        hour: now.getHours(),
+        minute: now.getMinutes()
+      }
     };
     return _this;
   }
 
   _createClass(Example, [{
-    key: 'handleTimeChange',
-    value: function handleTimeChange(time) {
-      this.setState(time);
+    key: 'handleTime24Change',
+    value: function handleTime24Change(time) {
+      this.setState({ time24hr: time });
+    }
+  }, {
+    key: 'handleTime12Change',
+    value: function handleTime12Change(time) {
+      this.setState({ time12hr: time });
     }
   }, {
     key: 'render',
     value: function render() {
       var _state = this.state,
-          hour = _state.hour,
-          minute = _state.minute;
+          time12hr = _state.time12hr,
+          time24hr = _state.time24hr;
 
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
           'div',
-          null,
-          "Selected " + hour + ":" + (0, _lodash2.default)(minute, 2, "0")
+          { className: 'example__24hrcontainer' },
+          _react2.default.createElement(
+            'span',
+            { className: 'example__24hrtext' },
+            "Selected " + time24hr.hour + ":" + (0, _lodash2.default)(time24hr.minute, 2, "0")
+          ),
+          _react2.default.createElement(_timepicker2.default, { time: this.state.time24hr, onChange: this.handleTime24Change.bind(this) })
         ),
-        _react2.default.createElement(_timepicker2.default, { time: this.state, onChange: this.handleTimeChange.bind(this) })
+        _react2.default.createElement(
+          'div',
+          { className: 'example__12hrcontainer' },
+          _react2.default.createElement(
+            'span',
+            { className: 'example__12hrtext' },
+            "Selected " + time12hr.hour + ":" + (0, _lodash2.default)(time12hr.minute, 2, "0")
+          ),
+          _react2.default.createElement(_timepicker2.default, { time: this.state.time12hr, onChange: this.handleTime12Change.bind(this), displayFormat: '12-hour' })
+        )
       );
     }
   }]);
@@ -23534,6 +23559,17 @@ function TimeGridCell(props) {
       onClick: props.onClick },
     ":" + minstr
   );
+}
+
+function formatTime12(time) {
+  var meridiem = time.hour < 12 ? "am" : "pm";
+  var hour = time.hour > 12 ? time.hour - 12 : time.hour;
+  hour = hour || 12;
+  return hour.toString() + ":" + (0, _lodash2.default)(time.minute.toString(), 2, "0") + meridiem;
+}
+
+function formatTime24(time) {
+  return time.hour.toString() + ":" + (0, _lodash2.default)(time.minute.toString(), 2, "0");
 }
 
 var TimeGrid = function (_Component) {
@@ -23696,7 +23732,12 @@ var TimePicker = function (_Component2) {
   }, {
     key: 'render',
     value: function render() {
-      var timeStr = this.state.time ? this.state.time.hour.toString() + ":" + (0, _lodash2.default)(this.state.time.minute.toString(), 2, "0") : this.state.raw;
+      if (typeof this.props.displayFormat === "function") {
+        var formatter = this.props.displayFormat;
+      } else {
+        var formatter = this.props.displayFormat === "12-hour" ? formatTime12 : formatTime24;
+      }
+      var timeStr = this.state.time ? formatter(this.state.time) : this.state.raw;
       return _react2.default.createElement(
         'div',
         { className: "timepicker__container" + (this.state.isOpen ? " timepicker__container__open" : " timepicker__container__closed") },
@@ -23721,19 +23762,46 @@ var TimePicker = function (_Component2) {
 exports.default = TimePicker;
 
 
+function hour24(hour12, meridiem) {
+  if (meridiem === 'pm' && hour12 !== 12) {
+    return hour12 + 12;
+  } else if (meridiem === 'am' && hour12 === 12) {
+    return 0;
+  } else {
+    return hour12;
+  }
+}
+
 TimePicker.parseTimeString = function (ts) {
+  var m = ts.match(/(a|am|p|pm)$/);
+  if (m) {
+    var meridiem = m[1];
+    if (meridiem === 'a') meridiem = 'am';
+    if (meridiem === 'p') meridiem = 'pm';
+    ts = ts.substr(0, m.index);
+  }
   var split = ts.indexOf(":");
   if (split < 0) {
-    return null;
+    if (typeof meridiem !== 'undefined') {
+      var hour = hour24(Number(ts), meridiem);
+      return {
+        hour: hour,
+        minute: 0
+      };
+    } else {
+      return null;
+    }
   } else {
     var hstr = ts.substr(0, split);
     var mstr = ts.substr(split + 1);
     if (hstr.length < 1 || mstr.length < 2) {
       return null;
     } else {
+      var _hour = hour24(Number(hstr), meridiem);
+      var minute = Number(mstr);
       return {
-        hour: Number(hstr),
-        minute: Number(mstr)
+        hour: _hour,
+        minute: minute
       };
     }
   }
@@ -23741,6 +23809,7 @@ TimePicker.parseTimeString = function (ts) {
 
 TimePicker.PropTypes = {
   time: _propTypes2.default.any,
+  displayFormat: _propTypes2.default.any,
   onChange: _propTypes2.default.func
 };
 

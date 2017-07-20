@@ -3,6 +3,28 @@
   <head>
     <meta charset="utf-8"/>
     <title>React Drop-down Time Picker</title>
+    <style>
+      body {
+        font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+      }
+      pre {
+        font-family: Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
+      }
+      .example__24hrcontainer, .example__12hrcontainer {
+        margin: 10px 0;
+      }
+      .example__24hrtext, .example__12hrtext {
+        margin: auto 6px auto auto;
+        width: 120px;
+        display: inline-block;
+      }
+      .api-doc-table th {
+        text-align: left;
+      }
+      .api-doc-table td {
+        vertical-align: top;
+      }
+    </style>
   </head>
   <body>
     <h1>React Drop-down Time Picker</h1>
@@ -13,7 +35,7 @@
       </a>
     </section>
     <section>
-      <h2>Example</h2>
+      <h2>Examples</h2>
       <div id="example"></div>
     </section>
     <section>
@@ -24,30 +46,46 @@ $ npm install --save react-dropdown-timepicker
     </section>
     <section>
       <h2>Usage</h2>
-      <pre><code className="javascript">
+      <pre>
 import TimePicker from 'react-dropdown-timepicker';
 
 render() {
-	&lt;TimePicker
+  &lt;TimePicker
     time={this.state.time}
     onChange={this.handleTimeChange.bind(this)} /&gt;
 }
-      </code></pre>
+      </pre>
     </section>
     <section>
-      <h2>Attributes</h2>
-      <h3>time</h3>
-      <article>
-        Initially selected time to be highlighted in the time selection grid. May be
-        a JavaScript Date object or a simple object with "hour" and "minute" fields.
-        The hour value should be in the range [0, 23].
-      </article>
-      <h3>onChange</h3>
-      <article>
-        Function to be called when a time is selected. The first argument will be
-        a simple object with "hour" and "minute" fields. The hour value will be
-        24-hour format in the range [0,23].
-      </article>
+      <table class="api-doc-table">
+        <thead>
+          <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>time</td>
+            <td>Object</td>
+            <td>Initially selected time to be highlighted in the time selection grid. May be
+            a JavaScript Date object or a simple object with "hour" and "minute" fields.
+            The hour value should be in the range [0, 23].</td>
+          </tr>
+          <tr>
+            <td>onChange</td>
+            <td>Function</td>
+            <td>Function to be called when a time is selected. The first argument will be
+            a simple object with "hour" and "minute" fields. The hour value will be
+            24-hour format in the range [0,23].</td>
+          </tr>
+          <tr>
+            <td>displayFormat</td>
+            <td>String | Function</td>
+            <td>Specifies the format of the time displayed in the time picker's input box.
+            Valid values are "12-hour", "24-hour", or a function.
+            If a function is specified, its argument will be a simple object with
+            fields for the hour (24-hour format) and minute.</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   <script type="text/javascript" src="bundle.js"></script></body>
 </html>
