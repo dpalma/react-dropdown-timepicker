@@ -148,19 +148,44 @@ export default class TimePicker extends Component {
     }
 }
 
+function hour24(hour12, meridiem) {
+  if (meridiem === 'pm' && hour12 !== 12) {
+    return hour12 + 12
+  } else if (meridiem === 'am' && hour12 === 12) {
+    return 0
+  } else {
+    return hour12
+  }
+}
+
 TimePicker.parseTimeString = function(ts) {
+  let m = ts.match(/(am|pm)$/)
+  if (m) {
+    var meridiem = m[1]
+    ts = ts.substr(0, m.index)
+  }
   let split = ts.indexOf(":");
   if (split < 0) {
-    return null
+    if (typeof meridiem !== 'undefined') {
+      let hour = hour24(Number(ts), meridiem)
+      return {
+        hour,
+        minute:0
+      }
+    } else {
+      return null
+    }
   } else {
     let hstr = ts.substr(0, split)
     let mstr = ts.substr(split+1)
     if (hstr.length < 1 || mstr.length < 2) {
       return null
     } else {
+      let hour = hour24(Number(hstr), meridiem)
+      let minute = Number(mstr)
       return {
-        hour: Number(hstr),
-        minute: Number(mstr)
+        hour,
+        minute
       }
     }
   }

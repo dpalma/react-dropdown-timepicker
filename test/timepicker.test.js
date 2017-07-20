@@ -88,6 +88,29 @@ describe("TimePicker component", ()=>{
       }
     }
 
+    for (let h = 0; h < 12; ++h) {
+      let h12 = h || 12;
+      test("parses "+h12.toString()+"am", ()=>{
+        let result = TimePicker.parseTimeString(h12.toString()+"am");
+        expect(result).toEqual({hour:h,minute:0});
+      })
+
+      test("parses "+h12.toString()+":00am", ()=>{
+        let result = TimePicker.parseTimeString(h12.toString()+":00am");
+        expect(result).toEqual({hour:h,minute:0});
+      })
+
+      test("parses "+h12.toString()+"pm", ()=>{
+        let result = TimePicker.parseTimeString(h12.toString()+"pm");
+        expect(result).toEqual({hour:h+12,minute:0});
+      })
+
+      test("parses "+h12.toString()+":00pm", ()=>{
+        let result = TimePicker.parseTimeString(h12.toString()+":00pm");
+        expect(result).toEqual({hour:h+12,minute:0});
+      })
+    }
+
     for (let h = 0; h < 10; ++h) {
       test("rejects single-digit "+h.toString(), ()=> {
         let result = TimePicker.parseTimeString(h.toString());
