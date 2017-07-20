@@ -159,9 +159,11 @@ function hour24(hour12, meridiem) {
 }
 
 TimePicker.parseTimeString = function(ts) {
-  let m = ts.match(/(am|pm)$/)
+  let m = ts.match(/(a|am|p|pm)$/)
   if (m) {
     var meridiem = m[1]
+    if (meridiem === 'a') meridiem = 'am';
+    if (meridiem === 'p') meridiem = 'pm';
     ts = ts.substr(0, m.index)
   }
   let split = ts.indexOf(":");

@@ -95,8 +95,18 @@ describe("TimePicker component", ()=>{
         expect(result).toEqual({hour:h,minute:0});
       })
 
+      test("parses "+h12.toString()+" a", ()=>{
+        let result = TimePicker.parseTimeString(h12.toString()+" a");
+        expect(result).toEqual({hour:h,minute:0});
+      })
+
       test("parses "+h12.toString()+":00am", ()=>{
         let result = TimePicker.parseTimeString(h12.toString()+":00am");
+        expect(result).toEqual({hour:h,minute:0});
+      })
+
+      test("parses "+h12.toString()+":00a", ()=>{
+        let result = TimePicker.parseTimeString(h12.toString()+":00a");
         expect(result).toEqual({hour:h,minute:0});
       })
 
@@ -105,8 +115,18 @@ describe("TimePicker component", ()=>{
         expect(result).toEqual({hour:h+12,minute:0});
       })
 
+      test("parses "+h12.toString()+" p", ()=>{
+        let result = TimePicker.parseTimeString(h12.toString()+" p");
+        expect(result).toEqual({hour:h+12,minute:0});
+      })
+
       test("parses "+h12.toString()+":00pm", ()=>{
         let result = TimePicker.parseTimeString(h12.toString()+":00pm");
+        expect(result).toEqual({hour:h+12,minute:0});
+      })
+
+      test("parses "+h12.toString()+":00p", ()=>{
+        let result = TimePicker.parseTimeString(h12.toString()+":00p");
         expect(result).toEqual({hour:h+12,minute:0});
       })
     }
