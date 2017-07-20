@@ -3,6 +3,14 @@
   <head>
     <meta charset="utf-8"/>
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+      body {
+        font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+      }
+      pre {
+        font-family: Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
+      }
+    </style>
   </head>
   <body>
     <h1><%= htmlWebpackPlugin.options.title %></h1>
@@ -24,15 +32,15 @@ $ npm install --save react-dropdown-timepicker
     </section>
     <section>
       <h2>Usage</h2>
-      <pre><code className="javascript">
+      <pre>
 import TimePicker from 'react-dropdown-timepicker';
 
 render() {
-	&lt;TimePicker
+  &lt;TimePicker
     time={this.state.time}
     onChange={this.handleTimeChange.bind(this)} /&gt;
 }
-      </code></pre>
+      </pre>
     </section>
     <section>
       <h2>Attributes</h2>
@@ -47,6 +55,13 @@ render() {
         Function to be called when a time is selected. The first argument will be
         a simple object with "hour" and "minute" fields. The hour value will be
         24-hour format in the range [0,23].
+      </article>
+      <h3>displayFormat</h3>
+      <h4>"12-hour" | "24-hour" | (function)</h4>
+      <article>
+        Specifies the format of the time displayed in the time picker's input box.
+        If a custom function is used, its argument will be a simple object with
+        fields for the hour (24-hour format) and minute.
       </article>
     </section>
   </body>
