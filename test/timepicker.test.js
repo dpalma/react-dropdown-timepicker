@@ -186,4 +186,28 @@ describe("TimePicker component", ()=>{
 
   })
 
+  describe("display", ()=>{
+    test("shows 12-hour format", ()=>{
+      const tp = render(<TimePicker time={{hour:22,minute:45}} displayFormat="12-hour" />);
+      expect(tp.find(".timepicker__display input").prop("value")).toEqual("10:45pm");
+    })
+
+    test("shows midnight in 12-hour format", ()=>{
+      const tp = render(<TimePicker time={{hour:0,minute:0}} displayFormat="12-hour" />);
+      expect(tp.find(".timepicker__display input").prop("value")).toEqual("12:00am");
+    })
+
+    test("shows noon in 12-hour format", ()=>{
+      const tp = render(<TimePicker time={{hour:12,minute:0}} displayFormat="12-hour" />);
+      expect(tp.find(".timepicker__display input").prop("value")).toEqual("12:00pm");
+    })
+
+    test("shows 24-hour format", ()=>{
+      const tp = render(<TimePicker time={{hour:22,minute:45}} displayFormat="24-hour" />);
+      expect(tp.find(".timepicker__display input").prop("value")).toEqual("22:45");
+    })
+
+    test("shows custom format")
+  })
+
 })

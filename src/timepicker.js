@@ -15,6 +15,17 @@ function TimeGridCell(props) {
   )
 }
 
+function formatTime12(time) {
+  let meridiem = time.hour < 12 ? "am" : "pm"
+  let hour = time.hour > 12 ? time.hour - 12 : time.hour
+  hour = hour || 12;
+  return hour.toString() + ":" + padStart(time.minute.toString(), 2, "0") + meridiem;
+}
+
+function formatTime24(time) {
+  return time.hour.toString() + ":" + padStart(time.minute.toString(), 2, "0");
+}
+
 class TimeGrid extends Component {
     render() {
       return(
@@ -133,7 +144,8 @@ export default class TimePicker extends Component {
     }
 
     render() {
-        let timeStr = this.state.time ? this.state.time.hour.toString() + ":" + padStart(this.state.time.minute.toString(), 2, "0") : this.state.raw;
+        let formatter = this.props.displayFormat === "12-hour" ? formatTime12 : formatTime24;
+        let timeStr = this.state.time ? formatter(this.state.time) : this.state.raw;
         return (
             <div className={"timepicker__container" + (this.state.isOpen ? " timepicker__container__open" : " timepicker__container__closed")}>
                 <div className="timepicker__display" onClick={this.toggleDropdown}>
@@ -195,5 +207,6 @@ TimePicker.parseTimeString = function(ts) {
 
 TimePicker.PropTypes = {
     time: PropTypes.any,
+    displayFormat: PropTypes.any,
     onChange: PropTypes.func
 }
