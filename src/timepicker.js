@@ -144,7 +144,11 @@ export default class TimePicker extends Component {
     }
 
     render() {
-        let formatter = this.props.displayFormat === "12-hour" ? formatTime12 : formatTime24;
+        if (typeof this.props.displayFormat === "function") {
+          var formatter = this.props.displayFormat;
+        } else {
+          var formatter = this.props.displayFormat === "12-hour" ? formatTime12 : formatTime24;
+        }
         let timeStr = this.state.time ? formatter(this.state.time) : this.state.raw;
         return (
             <div className={"timepicker__container" + (this.state.isOpen ? " timepicker__container__open" : " timepicker__container__closed")}>

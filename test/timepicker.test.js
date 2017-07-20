@@ -207,7 +207,13 @@ describe("TimePicker component", ()=>{
       expect(tp.find(".timepicker__display input").prop("value")).toEqual("22:45");
     })
 
-    test("shows custom format")
+    test("shows custom format", ()=>{
+      let customFormat = (time) => {
+        return time.hour + " o'clock"
+      }
+      const tp = render(<TimePicker time={{hour:6,minute:45}} displayFormat={customFormat} />);
+      expect(tp.find(".timepicker__display input").prop("value")).toEqual("6 o'clock");
+    })
   })
 
 })
