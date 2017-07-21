@@ -1,6 +1,8 @@
 # React Drop-down Time Picker
 Time picker for ReactJS based on the [Cozi Calendar](https://www.cozi.com/calendar) time picker. [See the demo](https://dpalma.github.io/react-dropdown-timepicker/).
 
+[![Build Status](https://travis-ci.org/dpalma/react-dropdown-timepicker.svg?branch=master)](https://travis-ci.org/dpalma/react-dropdown-timepicker)
+
 ## Installation
 
 ```shell
