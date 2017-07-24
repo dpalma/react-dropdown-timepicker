@@ -157,6 +157,14 @@ describe("TimePicker component", ()=>{
       })
     }
 
+    // Bug:
+    // 1) Start with 8:00am
+    // 2) To change to 8:00pm, type a 'p' before the 'a', resulting in 8:00pam
+    // 3) Before you can delete the 'a', the time becomes 8:NaN
+    test("rejects extra text between time and am/pm", ()=>{
+      let result = TimePicker.parseTimeString("8:00pam");
+      expect(result).toBeNull();
+    })
   })
 
   describe("text input", ()=>{

@@ -175,38 +175,23 @@ function hour24(hour12, meridiem) {
 }
 
 TimePicker.parseTimeString = function(ts) {
-  let m = ts.match(/(a|am|p|pm)$/)
+  let m = ts.match(/^(\d{1,2})(?::(\d{2}))?\s*(a|am|p|pm)?$/)
   if (m) {
-    var meridiem = m[1]
+    let hstr = m[1]
+    let mstr = m[2]
+    let meridiem = m[3]
     if (meridiem === 'a') meridiem = 'am';
     if (meridiem === 'p') meridiem = 'pm';
-    ts = ts.substr(0, m.index)
-  }
-  let split = ts.indexOf(":");
-  if (split < 0) {
-    if (typeof meridiem !== 'undefined') {
-      let hour = hour24(Number(ts), meridiem)
-      return {
-        hour,
-        minute:0
-      }
-    } else {
-      return null
-    }
-  } else {
-    let hstr = ts.substr(0, split)
-    let mstr = ts.substr(split+1)
-    if (hstr.length < 1 || mstr.length < 2) {
-      return null
-    } else {
+    if (hstr && (mstr || meridiem)) {
       let hour = hour24(Number(hstr), meridiem)
-      let minute = Number(mstr)
+      let minute = typeof mstr !== 'undefined' ? Number(mstr) : 0
       return {
         hour,
         minute
       }
     }
   }
+  return null
 }
 
 TimePicker.PropTypes = {
