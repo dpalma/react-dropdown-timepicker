@@ -1,6 +1,6 @@
 {
   "name": "react-dropdown-timepicker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Drop-down time-picker for ReactJS",
   "main": "index.js",
   "scripts": {
