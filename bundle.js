@@ -23773,38 +23773,23 @@ function hour24(hour12, meridiem) {
 }
 
 TimePicker.parseTimeString = function (ts) {
-  var m = ts.match(/(a|am|p|pm)$/);
+  var m = ts.match(/^(\d{1,2})(?::(\d{2}))?\s*(a|am|p|pm)?$/);
   if (m) {
-    var meridiem = m[1];
+    var hstr = m[1];
+    var mstr = m[2];
+    var meridiem = m[3];
     if (meridiem === 'a') meridiem = 'am';
     if (meridiem === 'p') meridiem = 'pm';
-    ts = ts.substr(0, m.index);
-  }
-  var split = ts.indexOf(":");
-  if (split < 0) {
-    if (typeof meridiem !== 'undefined') {
-      var hour = hour24(Number(ts), meridiem);
+    if (hstr && (mstr || meridiem)) {
+      var hour = hour24(Number(hstr), meridiem);
+      var minute = typeof mstr !== 'undefined' ? Number(mstr) : 0;
       return {
         hour: hour,
-        minute: 0
-      };
-    } else {
-      return null;
-    }
-  } else {
-    var hstr = ts.substr(0, split);
-    var mstr = ts.substr(split + 1);
-    if (hstr.length < 1 || mstr.length < 2) {
-      return null;
-    } else {
-      var _hour = hour24(Number(hstr), meridiem);
-      var minute = Number(mstr);
-      return {
-        hour: _hour,
         minute: minute
       };
     }
   }
+  return null;
 };
 
 TimePicker.PropTypes = {
