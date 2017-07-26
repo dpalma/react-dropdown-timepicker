@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import TimePicker from '../src/timepicker'
+import TimePicker from '../lib/timepicker.min'
 
 import padStart from 'lodash.padstart'
 

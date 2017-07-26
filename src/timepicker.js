@@ -5,8 +5,6 @@ import css from './timepicker.css'
 
 import padStart from 'lodash.padstart'
 
-import 'font-awesome/scss/font-awesome.scss'
-
 function TimeGridCell(props) {
   let minstr = padStart(props.minute.toString(), 2, "0");
   return (
