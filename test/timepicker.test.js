@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, mount } from 'enzyme';
+import { render, mount, shallow } from 'enzyme';
 
 import padStart from 'lodash.padstart'
 
@@ -221,6 +221,15 @@ describe("TimePicker component", ()=>{
       }
       const tp = render(<TimePicker time={{hour:6,minute:45}} displayFormat={customFormat} />);
       expect(tp.find(".timepicker__display input").prop("value")).toEqual("6 o'clock");
+    })
+
+    test("toggles drop-down list when clicked", ()=>{
+      const tp = shallow(<TimePicker />);
+      expect(tp.state("isOpen")).toBeFalsy()
+      tp.find(".timepicker__display").simulate("click");
+      expect(tp.state("isOpen")).toBeTruthy()
+      tp.find(".timepicker__display").simulate("click");
+      expect(tp.state("isOpen")).toBeFalsy()
     })
   })
 
